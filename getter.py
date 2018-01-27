@@ -61,10 +61,14 @@ class Getter :
         """
         """
         self.__requests -= 1
-        profile_info = loads(get(url))
+        req = get(url)
+        profile_info = loads (req.text or req.content)
 
-        if profile_info['message'] == GITHUB_API_NF:
-            exit ('Cannot find this profile')
+        try:
+            if profile_info['message'] == GITHUB_API_NF:
+                exit ('Cannot find this profile')
+        except KeyError:
+            pass
 
         self.__summary['user'] = profile_info['login']
         self.__summary['name'] = profile_info['name']
@@ -75,7 +79,8 @@ class Getter :
         """
         """
         self.__requests -= 1
-        repos_info = loads(get(url))
+        req = get(url)
+        repos_info = loads (req.text or req.content)
 
         for repo in repos_info :
             lang = repo['language']
@@ -100,23 +105,23 @@ class Getter :
     def show_res(self):
         """
         """
-        msg = '''
-            User {} ({}):\n
-            \t"{}"\n
-            \tRegistered since {}\n\n
-            Repositories per languages:\n
-        '''
+        msg = 'User {} ({}):\n'
+        msg+= '\t"{}"\n'
+        msg+= '\tRegistered since {}\n\n'
+        msg+= 'Repositories per languages:\n'
+
         msg = msg.format (
                 self.__summary['name'],
                 self.__summary['user'],
                 self.__summary['bio'],
-                self.__summary['since']
+                self.__summary['since'][:10]
             )
-        for lang in self.__lang_c.most_common():
-            msg += '\t{}: {}\n'
-            msg.format (
-                    lang,
-                    self.__lang_c[lang]
-                )
+
+        for lang, repos_cpt in self.__lang_c.most_common() :
+            if lang is None:
+                msg += '\tOther : ' + str(repos_cpt) + '\n'
+            else:  
+                msg += '\t' + lang + ': ' + str(repos_cpt) + '\n'
+
         msg = msg.expandtabs(4)
         print (msg)
