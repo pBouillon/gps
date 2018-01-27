@@ -30,9 +30,8 @@ from sys import argv
 
 if __name__ == '__main__':
     if len(argv) != 2:
-        print('usage: python3 gps.py username')
-        exit()
-
+        exit('usage: python3 gps.py username')
+        
     g = Getter()
     g.gps_for (argv[1])
     g.show_res()

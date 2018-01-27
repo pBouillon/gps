@@ -40,7 +40,10 @@ GITHUB_API_HOLD = 60 * 31
 
 REQUEST_PER_USE = 2 
 
+
 class Getter :
+    """
+    """
     def __init__(self) :
         """
         """
@@ -48,7 +51,7 @@ class Getter :
         self.__lang_c   = Counter()
         self.__requests = 0
 
-        self.__update_lim()
+        self.__update_lim ()
 
     def __update_lim (self):
             """
@@ -64,26 +67,27 @@ class Getter :
         req = get(url)
         profile_info = loads (req.text or req.content)
 
+        # ensure that the profile exists
         try:
             if profile_info['message'] == GITHUB_API_NF:
                 exit ('Cannot find this profile')
         except KeyError:
             pass
 
-        self.__summary['user'] = profile_info['login']
-        self.__summary['name'] = profile_info['name']
-        self.__summary['bio' ] = profile_info['bio' ]
+        self.__summary['user']  = profile_info['login']
+        self.__summary['name']  = profile_info['name' ]
+        self.__summary['bio' ]  = profile_info['bio'  ]
         self.__summary['since'] = profile_info['created_at']
 
     def __get_usr_repo (self, url):
         """
         """
         self.__requests -= 1
-        req = get(url)
+        req = get (url)
         repos_info = loads (req.text or req.content)
 
         for repo in repos_info :
-            lang = repo['language']
+            lang = repo['language'] if repo['language'] != None else 'Unknow'
             self.__lang_c[lang] += 1
 
     def gps_for(self, username) :
@@ -106,22 +110,34 @@ class Getter :
         """
         """
         msg = 'User {} ({}):\n'
-        msg+= '\t"{}"\n'
-        msg+= '\tRegistered since {}\n\n'
+        msg+= '\t|{}\n'
+        msg+= '\t|Registered since {}\n'
+        msg+= '\t|{} public repositories\n\n'
         msg+= 'Repositories per languages:\n'
 
         msg = msg.format (
                 self.__summary['name'],
                 self.__summary['user'],
-                self.__summary['bio'],
-                self.__summary['since'][:10]
+                self.__summary['bio'] ,
+                self.__summary['since'][:10],
+                sum(self.__lang_c.values())
             )
 
+        max_sz = len(max(self.__lang_c.keys(), key=len))
         for lang, repos_cpt in self.__lang_c.most_common() :
-            if lang is None:
-                msg += '\tOther : ' + str(repos_cpt) + '\n'
-            else:  
-                msg += '\t' + lang + ': ' + str(repos_cpt) + '\n'
+            msg += '\t' + format_lang(lang, repos_cpt, max_sz) + '\n'
 
         msg = msg.expandtabs(4)
         print (msg)
+
+def format_lang (lang, count, max_sz) :
+    """
+    """
+    formated = ''
+    formated+= lang
+    while len(formated) < max_sz:
+        formated+= ' '
+    formated+= ': '
+    formated+= str(count)
+
+    return formated
