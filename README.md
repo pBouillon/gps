@@ -39,4 +39,6 @@ Cannot find this profile
 - [ ] better display for repo per language
 
 ## contributions
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 Contributions are welcome !
