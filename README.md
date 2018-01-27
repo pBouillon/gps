@@ -27,8 +27,10 @@ Cannot find this profile
 ```
 
 ## improvements
-- [ ] better handling for None value
+- [ ] better handling for None values
 - [ ] better handling on API limit reach
+- [ ] increase allowed requests
+- [ ] show sum of all repos
 
 ## contributions
 Contributions are welcome !
