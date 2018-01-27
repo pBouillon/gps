@@ -109,7 +109,7 @@ class Getter :
     def show_res(self):
         """
         """
-        msg = 'User {} ({}):\n'
+        msg = '\nUser {} ({}):\n'
         msg+= '\t|{}\n'
         msg+= '\t|Registered since {}\n'
         msg+= '\t|{} public repositories\n\n'
