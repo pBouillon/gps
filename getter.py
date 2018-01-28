@@ -109,23 +109,31 @@ class Getter :
     def show_res(self):
         """
         """
-        msg = '\nUser {} ({}):\n'
-        msg+= '\t|{}\n'
-        msg+= '\t|Registered since {}\n'
-        msg+= '\t|{} public repositories\n\n'
-        msg+= 'Repositories per languages:\n'
+        total_rep = sum(self.__lang_c.values())
 
+        msg  = '\nUser {} ({}):\n'
+        msg += '\t| {}\n'
+        msg += '\t| Registered since {}\n'
+        msg += '\t| {} public '
+        msg += 'repositories\n' if total_rep > 1 else 'repository\n'
+        msg += '\n'
+        
         msg = msg.format (
                 self.__summary['name'],
                 self.__summary['user'],
-                self.__summary['bio'] ,
+                self.__summary['bio' ] ,
                 self.__summary['since'][:10],
-                sum(self.__lang_c.values())
+                total_rep
             )
 
-        max_sz = len(max(self.__lang_c.keys(), key=len))
-        for lang, repos_cpt in self.__lang_c.most_common() :
-            msg += '\t' + format_lang(lang, repos_cpt, max_sz) + '\n'
+        if len(self.__lang_c.keys()) > 0 :
+            msg+= 'Repositories per languages:\n'
+
+            max_sz = len(max(self.__lang_c.keys(), key=len))
+            for lang, repos_cpt in self.__lang_c.most_common() :
+                msg += format_lang(lang, repos_cpt, max_sz)
+        else:
+            msg += 'This user does not have any public repository\n'
 
         msg = msg.expandtabs(4)
         print (msg)
@@ -140,4 +148,4 @@ def format_lang (lang, count, max_sz) :
     formated+= ': '
     formated+= str(count)
 
-    return formated
+    return '\t' + formated + '\n'
