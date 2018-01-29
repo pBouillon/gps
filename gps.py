@@ -27,8 +27,10 @@ from getter import Getter
 import sys
 from sys import argv
 
+REQUIRED_ARGS = 2
+
 if __name__ == '__main__':
-    if len(argv) != 2:
+    if len(argv) != REQUIRED_ARGS:
         exit('usage: python3 gps.py username')
 
     g = Getter()
