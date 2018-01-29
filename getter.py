@@ -127,11 +127,21 @@ class Getter :
             )
 
         if len(self.__lang_c.keys()) > 0 :
-            msg+= 'Repositories per languages:\n'
+            msg+= 'Repositories summary:\n'
 
-            max_sz = len(max(self.__lang_c.keys(), key=len))
-            for lang, repos_cpt in self.__lang_c.most_common() :
-                msg += format_lang(lang, repos_cpt, max_sz)
+            sorted_rep = {}
+            for lang, cpt in self.__lang_c.most_common() :
+                if cpt not in sorted_rep:
+                    sorted_rep[cpt] = []
+                sorted_rep[cpt].append(lang)
+
+            for tot, langs in sorted_rep.items() :
+                msg += '\t| x{} '
+                msg += 'repos ' if tot > 1 else 'repo '
+                msg += 'written in :\n'
+                msg  = msg.format(tot)
+                for lang in langs :
+                    msg += '\t|\t* ' + lang + '\n'
         else:
             msg += 'This user does not have any public repository\n'
 

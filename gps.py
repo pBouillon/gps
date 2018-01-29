@@ -21,7 +21,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-
 import getter
 from getter import Getter
 
@@ -29,9 +28,13 @@ import sys
 from sys import argv
 
 if __name__ == '__main__':
-    if len(argv) != 2:
-        exit('usage: python3 gps.py username')
+    # if len(argv) != 2:
+        # exit('usage: python3 gps.py username')
 
     g = Getter()
-    g.gps_for (argv[1])
+    # g.gps_for (argv[1])
+    g.gps_for('pBouillon')
+    g.show_res()
+
+    g.gps_for('ncjherhnfnerhvfej')
     g.show_res()

@@ -19,18 +19,21 @@ Cannot find this profile
 User Pierre Bouillon (pBouillon):
     | Developer, student and tech enthusiast.
     | Registered since 2016-10-05
-    | 27 public repositories
+    | 28 public repositories
 
-Repositories per languages:
-    Python    : 17
-    Unknow    : 2
-    Java      : 2
-    Assembly  : 1
-    C         : 1
-    C++       : 1
-    CSS       : 1
-    JavaScript: 1
-    HTML      : 1
+Repositories summary:
+    | x18 repos written in :
+    |   * Python
+    | x2 repos written in :
+    |   * Unknow
+    |   * Java
+    | x1 repo written in :
+    |   * Assembly
+    |   * C
+    |   * C++
+    |   * CSS
+    |   * JavaScript
+    |   * HTML
 
 ```
 
@@ -39,7 +42,7 @@ Repositories per languages:
 - [ ] better handling on API limit reach
 - [ ] increase allowed requests
 - [x] show sum of all repos
-- [ ] better display for repo per language
+- [x] better display for repo per language
 
 ## contributions
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
