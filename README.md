@@ -38,8 +38,8 @@ Repositories summary:
 ```
 
 ## improvements
-- [ ] better handling for None values (Bio, Repos, Real Name, etc.)
-- [ ] better handling on API limit reach
+- [x] better handling for None values (Bio, Repos, Real Name, etc.)
+- [x] better handling on API limit reach
 - [ ] increase allowed requests
 - [x] show sum of all repos
 - [x] better display for repo per language

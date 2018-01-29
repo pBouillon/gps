@@ -34,11 +34,12 @@ from requests import get
 import time
 from time import sleep
 
-GITHUB_API_URL  = 'https://api.github.com/'
-GITHUB_API_NF   = 'Not Found'
-GITHUB_API_HOLD = 60 * 31
+GITHUB_API_URL    = 'https://api.github.com/'
+GITHUB_API_NF     = 'Not Found'
+GITHUB_API_HOLD   = 60 * 31
 
-REQUEST_PER_USE = 2 
+REQUEST_PER_USE   = 2 
+REQUEST_WARN_TRIG = 10
 
 
 class Getter :
@@ -100,6 +101,11 @@ class Getter :
             )
             sleep (GITHUB_API_HOLD)
             self.__update_lim()
+        if self.__requests < REQUEST_WARN_TRIG :
+            print (
+                'WARNING: {} requests remaining.\n'
+                .format(self.__requests)
+            )
 
         self.__get_usr_info (GITHUB_API_URL + 'users/' + username)
         self.__get_usr_repo (GITHUB_API_URL + 'users/' + username + '/repos')
@@ -111,17 +117,31 @@ class Getter :
         """
         total_rep = sum(self.__lang_c.values())
 
-        msg  = '\nUser {} ({}):\n'
-        msg += '\t| {}\n'
+        msg  = '\nUser {}'
+        if self.__summary['name'] is None:
+            msg = msg.format (self.__summary['user'])
+        else :
+            msg += ' ({})'
+            msg = msg.format (
+                self.__summary['name'],
+                self.__summary['user']
+            )
+        msg += ':\n'
+
+        msg += '\t| '
+        if self.__summary['bio'] is None:
+            msg += '<no bio provided>\n'
+        else :
+            msg += '{}\n'    
+            msg = msg.format (self.__summary['bio'])
+
+
         msg += '\t| Registered since {}\n'
         msg += '\t| {} public '
         msg += 'repositories\n' if total_rep > 1 else 'repository\n'
         msg += '\n'
         
         msg = msg.format (
-                self.__summary['name'],
-                self.__summary['user'],
-                self.__summary['bio' ] ,
                 self.__summary['since'][:10],
                 total_rep
             )
