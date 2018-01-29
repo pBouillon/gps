@@ -103,7 +103,7 @@ class Getter :
             self.__update_lim()
         if self.__requests < REQUEST_WARN_TRIG :
             print (
-                'WARNING: {} requests remaining.\n'
+                'WARNING: {} requests remaining.'
                 .format(self.__requests)
             )
 
@@ -167,15 +167,3 @@ class Getter :
 
         msg = msg.expandtabs(4)
         print (msg)
-
-def format_lang (lang, count, max_sz) :
-    """
-    """
-    formated = ''
-    formated+= lang
-    while len(formated) < max_sz:
-        formated+= ' '
-    formated+= ': '
-    formated+= str(count)
-
-    return '\t' + formated + '\n'
