@@ -37,10 +37,20 @@ Repositories summary:
 
 ```
 
+You can also get only specify part of the user's infos
+```Python
+g = Getter()
+g.get_remaining_requests() # check how many requests you can perform
+
+g.gps_for ('user')
+g.formated_res()        # returns all infos in a human readable str
+g.get_profile_summary() # get infos on the user as a dict
+g.get_language_count()  # get repos per language in a collections.Counter
+```
+
 ## improvements
 - [x] better handling for None values (Bio, Repos, Real Name, etc.)
 - [x] better handling on API limit reach
-- [ ] increase allowed requests
 - [x] show sum of all repos
 - [x] better display for repo per language
 
