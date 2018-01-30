@@ -53,6 +53,7 @@ g.get_language_count()  # get repos per language in a collections.Counter
 - [x] better handling on API limit reach
 - [x] show sum of all repos
 - [x] better display for repo per language
+- [ ] langages sorted by alphabetical order on display
 
 ## contributions
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
