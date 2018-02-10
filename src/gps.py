@@ -36,7 +36,9 @@ from time     import sleep
 
 GITHUB_API_URL    = 'https://api.github.com/'
 GITHUB_API_NF     = 'Not Found'
-GITHUB_API_HOLD   = 60 * 31
+
+GITHUB_API_HOLD       = 60 * 31
+GITHUB_API_HOLD_SLICE = 60
 
 REQUEST_PER_USE   = 2 
 REQUEST_WARN_TRIG = 10
@@ -70,8 +72,8 @@ class Gps :
         """ Gather the GitHub user infos
 
         Localy updates the requests count
-        TThen ensure the profile exists
-        Finally gather information into __summary
+        If possible, gather information into __summary
+        Else exits 
 
         Parameter:
             url (str) : GitHub API url for the profile
@@ -79,17 +81,16 @@ class Gps :
         self.__requests -= 1
         req = get(url)
         profile_info = loads (req.text or req.content)
-
+        
         try:
+            self.__summary['user']  = profile_info['login']
+            self.__summary['name']  = profile_info['name' ]
+            self.__summary['bio' ]  = profile_info['bio'  ]
+            self.__summary['since'] = profile_info['created_at']
+        except KeyError:
             if profile_info['message'] == GITHUB_API_NF:
                 exit ('Cannot find this profile')
-        except KeyError:
-            pass
-
-        self.__summary['user']  = profile_info['login']
-        self.__summary['name']  = profile_info['name' ]
-        self.__summary['bio' ]  = profile_info['bio'  ]
-        self.__summary['since'] = profile_info['created_at']
+            exit ('Something went wrong...')
 
     def __get_usr_repo (self, url: str) -> None:
         """ Gather user's repos infos
@@ -104,9 +105,21 @@ class Gps :
         req = get (url)
         repos_info = loads (req.text or req.content)
 
+        self.__lang_c = Counter()
         for repo in repos_info :
             lang = repo['language'] if repo['language'] != None else 'Unknow'
             self.__lang_c[lang] += 1
+
+    def __start_timer (self) -> None:
+        """
+        """
+        cpt = GITHUB_API_HOLD
+        
+        print ('Unable to reach API, waiting ...')
+        while cpt :
+            print ('{} second(s) left'.format(cpt))
+            sleep (GITHUB_API_HOLD_SLICE)
+            cpt -= GITHUB_API_HOLD_SLICE
 
     def get_language_count (self) -> Counter:
         """ Getter for __lang_c
@@ -136,11 +149,7 @@ class Gps :
             (tuple) : github user's infos, counter per language
         """
         if self.__requests - REQUEST_PER_USE <= 0:
-            print (
-                'Unable to reach API, waiting {} seconds ...'
-                .format(GITHUB_API_HOLD)
-            )
-            sleep (GITHUB_API_HOLD)
+            self.__start_timer()
             self.__update_lim()
         if self.__requests < REQUEST_WARN_TRIG :
             print (
