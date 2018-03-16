@@ -15,26 +15,27 @@ usage: python3 gps.py username
 Cannot find this profile
 
 ~$ python gps.py pBouillon
-
 User Pierre Bouillon (pBouillon):
     | Developer, student and tech enthusiast.
     | Registered since 2016-10-05
-    | 28 public repositories
+    | 30 public repositories
 
 Repositories summary:
-    | x18 repos written in :
+    | x19 repos written in :
     |   * Python
-    | x2 repos written in :
+    |
+    | x3 repos written in :
     |   * Unknow
     |   * Java
+    |
+    | x2 repos written in :
+    |   * JavaScript
+    |
     | x1 repo written in :
-    |   * Assembly
     |   * C
     |   * C++
     |   * CSS
-    |   * JavaScript
-    |   * HTML
-
+    |
 ```
 
 You can also get only specify part of the user's infos
@@ -53,7 +54,7 @@ g.get_language_count()  # get repos per language in a collections.Counter
 - [x] better handling on API limit reach
 - [x] show sum of all repos
 - [x] better display for repo per language
-- [ ] langages sorted by alphabetical order on display
+- [ ] languages sorted by alphabetical order on display
 
 ## contributions
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)

@@ -30,11 +30,16 @@ from sys import argv
 REQUIRED_ARGS = 2
 
 if __name__ == '__main__':
-    if len(argv) != REQUIRED_ARGS:
-       exit('usage: python3 ' + argv[0] + ' username')
+    urs = ''
+
+    if len(argv) > REQUIRED_ARGS:
+        exit('usage: python3 ' + argv[0] + ' username')
+    elif len(argv) == 1:
+        usr = input('Profile\'s name: ')
+    else:
+        usr = argv[1]
 
     g = Gps()
-    g.gps_for (argv[1])
+    g.gps_for(usr)
 
     print(g.formated_res())
-
