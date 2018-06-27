@@ -15,18 +15,22 @@ usage: python3 gps.py username
 Cannot find this profile
 
 ~$ python gps.py pBouillon
+Profile's name: pBouillon
+
 User Pierre Bouillon (pBouillon):
     | Developer, student and tech enthusiast.
     | Registered since 2016-10-05
     | 30 public repositories
 
 Repositories summary:
-    | x19 repos written in :
+    | x17 repos written in :
     |   * Python
     |
-    | x3 repos written in :
-    |   * Unknow
+    | x4 repos written in :
     |   * Java
+    |
+    | x3 repos written in :
+    |   * Unknown
     |
     | x2 repos written in :
     |   * JavaScript
@@ -35,6 +39,7 @@ Repositories summary:
     |   * C
     |   * C++
     |   * CSS
+    |   * HTML
     |
 ```
 
