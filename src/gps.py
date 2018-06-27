@@ -1,37 +1,32 @@
-"""
-MIT License
-
-Copyright (c) 2018 Pierre Bouillon
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-import collections
 from collections import Counter
 
-import json
 from json import loads
 
-import requests
 from requests import get
 
-import time
 from time import sleep
+
+# MIT License
+#
+# Copyright (c) 2018 Pierre Bouillon
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 GITHUB_API_URL = 'https://api.github.com/'
 GITHUB_API_NF = 'Not Found'
@@ -85,7 +80,7 @@ class Gps:
 
         Locally updates the requests count
         If possible, gather information into __summary
-        Else exits 
+        Else exits
 
         Parameter:
             url (str) : GitHub API url for the profile
@@ -119,7 +114,7 @@ class Gps:
 
         self.__lang_c = Counter()
         for repo in repos_info:
-            lang = repo['language'] if repo['language'] else 'Unknow'
+            lang = repo['language'] if repo['language'] else 'Unknown'
             self.__lang_c[lang] += 1
 
     def get_language_count(self) -> Counter:
@@ -138,16 +133,16 @@ class Gps:
         return self.__requests
 
     def gps_for(self, username: str) -> tuple:
-        """ Get infos on a specific profile
+        """ Get info on a specific profile
 
         Ensure Gps can perform requests
-        Then gather informations
+        Then gather information
 
         Parameter:
             username (str) : searched user
 
         Returns:
-            (tuple) : github user's infos, counter per language
+            (tuple) : github user's info, counter per language
         """
         if self.__requests - REQUEST_PER_USE <= 0:
             self.__start_timer()
@@ -163,11 +158,11 @@ class Gps:
 
         return self.__summary, self.__lang_c
 
-    def formated_res(self) -> str:
+    def formatted_res(self) -> str:
         """ Format intern results and returns it
 
         Return:
-            (str) : formated result for display
+            (str) : formatted result for display
         """
         total_rep = sum(self.__lang_c.values())
 
