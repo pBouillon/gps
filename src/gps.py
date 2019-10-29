@@ -208,7 +208,7 @@ class Gps:
                 msg += 'repos ' if tot > 1 else 'repo '
                 msg += 'written in :\n'
                 msg = msg.format(tot)
-                for lang in langs:
+                for lang in sorted(langs):
                     msg += '\t|\t* ' + lang + '\n'
                 msg += '\t|\n'
         else:
