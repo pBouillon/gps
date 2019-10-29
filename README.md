@@ -2,7 +2,7 @@
 Github Profile Summary (gps) is a small command-line tool 
 to get an overview of a Github user's activity
 
-Inspired by [this cool repo](https://github-profile-summary.com/), 
+Inspired by [this cool repo](https://profile-summary-for-github.com/search), 
 it's a shorter version that does not require you to browse on the internet.
 
 ## usage
