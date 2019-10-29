@@ -1,6 +1,7 @@
 from gps import Gps
 
 from argparse import ArgumentParser
+from sys import exit as quit
 
 # MIT License
 #
@@ -26,12 +27,16 @@ from argparse import ArgumentParser
 
 if __name__ == '__main__':
     parser = ArgumentParser(prog="gps.py")
-    parser.add_argument("username", dest="user", nargs="?", type=str,
-        help="Your GitHub username")
+    parser.add_argument("profile_name", dest="user", nargs="?", type=str,
+        help="Your GitHub profile name")
     args = parser.parse_args()
     user = args.user
     if user is None:
-        user = input("Enter GitHub Username: ")
+        user = input("Profile's name: ")
+        
+    if len(user) == 0:
+        print("ERROR: No username was provided!")
+        quit(1)
 
     g = Gps()
     g.gps_for(user)
