@@ -31,7 +31,7 @@ if __name__ == '__main__':
         help="Your GitHub profile name")
     args = parser.parse_args()
     user = args.user
-    if user is None:
+    if not user:
         user = input("Profile's name: ")
         
     if len(user) == 0:
