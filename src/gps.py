@@ -1,10 +1,9 @@
+import sys
 from collections import Counter
-
 from json import loads
-
 from requests import get
-
 from time import sleep
+from argparse import ArgumentParser
 
 # MIT License
 #
@@ -215,3 +214,18 @@ class Gps:
             msg += 'This user does not have any public repository\n'
 
         return msg.expandtabs(4)
+
+if __name__ == '__main__':
+    parser = ArgumentParser()
+    parser.add_argument("username", nargs="?", type=str,
+        help="Your GitHub profile name")
+    args = parser.parse_args()
+        
+    if not args.username:
+        print("ERROR: No username was provided!")
+        sys.exit(1)
+
+    g = Gps()
+    g.gps_for(args.username)
+
+    print(g.formatted_res())
