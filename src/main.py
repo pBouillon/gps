@@ -1,6 +1,7 @@
 from gps import Gps
 
-from sys import argv
+from argparse import ArgumentParser
+from sys import exit as quit
 
 # MIT License
 #
@@ -25,16 +26,19 @@ from sys import argv
 # SOFTWARE.
 
 if __name__ == '__main__':
-    usr = ''
-
-    if len(argv) > 2:
-        exit('usage: python3 ' + argv[0] + ' username')
-    elif len(argv) == 1:
-        usr = input('Profile\'s name: ')
-    else:
-        usr = argv[1]
+    parser = ArgumentParser(prog="gps.py")
+    parser.add_argument("profile_name", dest="user", nargs="?", type=str,
+        help="Your GitHub profile name")
+    args = parser.parse_args()
+    user = args.user
+    if not user:
+        user = input("Profile's name: ")
+        
+    if len(user) == 0:
+        print("ERROR: No username was provided!")
+        quit(1)
 
     g = Gps()
-    g.gps_for(usr)
+    g.gps_for(user)
 
     print(g.formatted_res())
