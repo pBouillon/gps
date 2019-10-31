@@ -27,8 +27,13 @@ from sys import exit as quit
 
 if __name__ == '__main__':
     parser = ArgumentParser(prog="gps.py")
-    parser.add_argument("profile_name", dest="user", nargs="?", type=str,
-        help="Your GitHub profile name")
+    parser.add_argument(
+        metavar="profile_name",
+        dest="user",
+        nargs="?",
+        type=str,
+        help="Your GitHub profile name"
+    )
     args = parser.parse_args()
     user = args.user
     if not user:
