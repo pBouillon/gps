@@ -1,4 +1,4 @@
-from gps import Gps
+from .gps import Gps
 
 from argparse import ArgumentParser
 from sys import exit as quit
@@ -26,7 +26,7 @@ from sys import exit as quit
 # SOFTWARE.
 
 if __name__ == '__main__':
-    parser = ArgumentParser(prog="gps.py")
+    parser = ArgumentParser(prog="python -m github_profile_summary")
     parser.add_argument("profile_name", dest="user", nargs="?", type=str,
         help="Your GitHub profile name")
     args = parser.parse_args()

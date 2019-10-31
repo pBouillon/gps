@@ -8,13 +8,15 @@ it's a shorter version that does not require you to browse on the internet.
 ## usage
 
 ```shell
-~$ python gps.py 
+~$ pip install github_profile_summary
+
+~$ python -m github_profile_summary
 usage: python3 gps.py username
 
-~$ python gps.py a_non_existing_user
+~$ python -m github_profile_summary a_non_existing_user
 Cannot find this profile
 
-~$ python gps.py pBouillon
+~$ python -m github_profile_summary pBouillon
 Profile's name: pBouillon
 
 User Pierre Bouillon (pBouillon):
